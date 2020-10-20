@@ -1,0 +1,32 @@
+.test-svg {
+  border: 1px solid black;
+  width: 300px;
+  height: 300px;
+}
+
+.test1 {
+  /* transform: rotate(60deg); */
+  fill: url(#red-blue);
+}
+
+.test1:hover {
+  fill: url(#red-blue2);
+}
+
+.stop1 {
+  stop-color: red;
+}
+.stop2 {
+  stop-color: black;
+  stop-opacity: 0;
+}
+.stop3 {
+  stop-color: blue;
+}
+
+.test-button {
+  width: 100px;
+  height: 50px;
+  background: blue;
+  border: 1px solid black;
+}
