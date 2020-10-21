@@ -9,29 +9,19 @@
   }
 
   &__paths {
-
   }
 
   &__outer-path {
-    /* transform: rotate(60deg); */
-    fill: url(#red-blue);
   }
 
-  &__outer-path:hover {
-    fill: url(#red-blue2);
+  &__inner-path {
+    fill: white;
+  }
+
+  &__central-circle {
+    fill: white;
   }
 }
-
-/* .stop1 {
-  stop-color: red;
-}
-.stop2 {
-  stop-color: black;
-  stop-opacity: 0;
-}
-.stop3 {
-  stop-color: blue;
-} */
 
 .test-button {
   width: 100px;

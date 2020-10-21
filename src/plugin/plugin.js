@@ -2,12 +2,24 @@ import Segment from './Segment';
 
 import './plugin.scss';
 
+const initializeSegmentsData = [
+  { value: 30, topColor: 'rgb(188, 156, 255)', bottomColor: 'rgb(139, 164, 249)', name: 'name1' },
+  { value: 50, topColor: 'rgb(111, 207, 151)', bottomColor: 'rgb(102, 210, 234)', name: 'name2' },
+  { value: 60, topColor: 'rgb(255, 227, 156)', bottomColor: 'rgb(255, 186, 156)', name: 'name3' },
+  { value: 10, topColor: 'rgb(145, 145, 145)', bottomColor: 'rgb(61, 73, 117)', name: 'name4' },
+];
+
 class PieChart {
-  constructor(container, values = [30, 20, 50, 10]) {
+  constructor(container, segmentsData = [...initializeSegmentsData]) {
     this.container = container;
-    this.values = values;
-    this.totalValue = values.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+    this.segmentsData = segmentsData;
+    this.totalValue = segmentsData.reduce((previousValue, currentValue) => previousValue + currentValue.value, 0);
     this.segments = [];
+
+    this.radius = 150;
+    this.subradius = 130;
+    this.hoveredSubradius = 120;
 
     this.rotate = this.rotate.bind(this);
 
@@ -16,13 +28,6 @@ class PieChart {
 
   initialize() {
     this.build();
-
-    /* this.rotate(); */
-    /* const rotateTimerId = setInterval(this.rotate, 300);
-
-    this.buttonTEST.addEventListener('click', () => {
-      clearInterval(rotateTimerId);
-    }); */
     this.buttonTEST.addEventListener('click', this.rotate);
   }
 
@@ -31,21 +36,14 @@ class PieChart {
     this.chartContainer.classList.add('pie-chart');
     this.chartContainer.innerHTML = `
       <svg class="pie-chart__svg">
-        <defs class="pie-chart__defs">
-          <linearGradient id="red-blue" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="red" />
-            <stop offset="100%" stop-color="blue" />
-          </linearGradient>
-          <linearGradient id="red-blue2" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="rgb(255, 227, 156)" />
-            <stop offset="100%" stop-color="rgb(255, 186, 156)" />
-          </linearGradient>
-        </defs>
-
+        <defs class="pie-chart__defs"></defs>
+        <g class="pie-chart__paths" transform="translate(${this.radius},${this.radius})"></g>
+        <circle class="pie-chart__central-circle" cx="0" cy="0" r="${this.hoveredSubradius}" transform="translate(${this.radius},${this.radius})" />
       </svg>
     `;
     this.svgContainer = this.chartContainer.querySelector('.pie-chart__svg')
-    /* this.defs = this.svgContainer.querySelector('.pie-chart__defs'); */
+    this.defs = this.svgContainer.querySelector('.pie-chart__defs');
+    this.paths = this.svgContainer.querySelector('.pie-chart__paths');
 
     this.buttonTEST = document.createElement('button');
     this.buttonTEST.classList.add('test-button');
@@ -58,8 +56,8 @@ class PieChart {
   }
 
   buildSegments() {
-    this.values.forEach((value, index) => {
-      this.segments.push(new Segment(this, value, index));
+    this.segmentsData.forEach((segmentData, index) => {
+      this.segments.push(new Segment(this, segmentData, index));
     });
   }
 
@@ -74,5 +72,4 @@ class PieChart {
 
 export default PieChart;
 
-// M move to (x, y) -> draw line to (x, y) -> A radius start(x, y) -> ? ? ? -> end (x, y)
 
