@@ -1,0 +1,34 @@
+mixin pie-chart(options = {})
+  -
+    const {
+      radius = 150,
+      subradius = 130,
+      hoveredSubradius = 120,
+      segments = [
+        { value: 30, topColor: "rgb(188, 156, 255)", bottomColor: "rgb(139, 164, 249)", name: "name1" },
+        { value: 50, topColor: "rgb(111, 207, 151)", bottomColor: "rgb(102, 210, 234)", name: "name2" },
+        { value: 60, topColor: "rgb(255, 227, 156)", bottomColor: "rgb(255, 186, 156)", name: "name3" },
+        { value: 10, topColor: "rgb(145, 145, 145)", bottomColor: "rgb(61, 73, 117)", name: "name4" },
+      ],
+    } = options;
+
+  div(class=["pie-chart"] data-radius=radius data-subradius=subradius data-hovered-subradius=hoveredSubradius)
+    svg(class=["pie-chart__svg"])
+      defs(class=["pie-chart__defs"])
+        - for(let i = 0; i < segments.length; i += 1) {
+          linearGradient(class=["pie-chart__gradient"] id=`${segments[i].name}${i}` x1="0" y1="0" x2="0" y2="1")
+            stop(class=["pie-chart__top-color"] offset="0%" stop-color=`${segments[i].topColor}`)
+            stop(class=["pie-chart__bottom-color"] offset="100%" stop-color=`${segments[i].bottomColor}`)
+        - }
+      g(class=["pie-chart__paths"] transform=`translate(${radius},${radius})`)
+        - for(let i = 0; i < segments.length; i += 1) {
+          path(class=["pie-chart__outer-path", `pie-chart__outer-path-${i}`, `js-pie-chart__outer-path-${i}`] style=`fill:url(#${segments[i].name}${i})`
+            data-value=segments[i].value data-name=segments[i].name data-index=i
+            d="M0 0 0 0 A0 0 0 0 1 0 0Z")
+          path(class=["pie-chart__inner-path", `pie-chart__inner-path-${i}`, `js-pie-chart__inner-path-${i}`]
+            data-value=segments[i].value data-name=segments[i].name data-index=i
+            d="M0 0 0 0 A0 0 0 0 1 0 0Z")
+        - }
+      circle(class=["pie-chart__central-circle"] cx="0" cy="0" r=hoveredSubradius transform=`translate(${radius},${radius})`)
+
+    button(class=["test-button"]) TEST

@@ -1,8 +1,11 @@
 extends ../base/base
 
+include ../../plugin/pie-chart.pug
+
 block title
   title Пример
 
 block body
   div(class=["example"])
     div(class=["example__plugin-instance"])
+      +pie-chart()
