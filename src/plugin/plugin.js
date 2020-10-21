@@ -3,7 +3,7 @@ import Segment from './Segment';
 import './plugin.scss';
 
 class PieChart {
-  constructor(container, values = [30, 20, 40, 10]) {
+  constructor(container, values = [30, 20, 50, 10]) {
     this.container = container;
     this.values = values;
     this.totalValue = values.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
