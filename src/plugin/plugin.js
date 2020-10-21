@@ -1,8 +1,13 @@
+import Segment from './Segment';
+
 import './plugin.scss';
 
 class PieChart {
-  constructor(container) {
+  constructor(container, values = [30, 20, 40, 10]) {
     this.container = container;
+    this.values = values;
+    this.totalValue = values.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    this.segments = [];
 
     this.rotate = this.rotate.bind(this);
 
@@ -12,26 +17,21 @@ class PieChart {
   initialize() {
     this.build();
 
-    this.startAngle = 0;
-    this.endAngle = 30;
-    this.radius = 150;
-    this.subradius = 130;
-
     /* this.rotate(); */
-    const rotateTimerId = setInterval(this.rotate, 300);
+    /* const rotateTimerId = setInterval(this.rotate, 300);
 
     this.buttonTEST.addEventListener('click', () => {
       clearInterval(rotateTimerId);
-    });
-    /* this.buttonTEST.addEventListener('click', this.rotate); */
+    }); */
+    this.buttonTEST.addEventListener('click', this.rotate);
   }
 
   build() {
-    this.svgContainer = document.createElement('div');
-    this.svgContainer.classList.add('pie-chart');
-    this.svgContainer.innerHTML = `
-      <svg class="test-svg">
-        <defs>
+    this.chartContainer = document.createElement('div');
+    this.chartContainer.classList.add('pie-chart');
+    this.chartContainer.innerHTML = `
+      <svg class="pie-chart__svg">
+        <defs class="pie-chart__defs">
           <linearGradient id="red-blue" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stop-color="red" />
             <stop offset="100%" stop-color="blue" />
@@ -42,50 +42,33 @@ class PieChart {
           </linearGradient>
         </defs>
 
-        <g transform="translate(150,150)">
-          <path class="test1" d="M0 0 0 -150 A150 150 90 0 1 150 0Z" />
-          <path class="test2" d="M0 0 0 -130 A150 150 90 0 1 130 0Z" fill="white" />
-        </g>
       </svg>
     `;
-    this.outerPath = this.svgContainer.querySelector('.test1');
-    this.innerPath = this.svgContainer.querySelector('.test2');
+    this.svgContainer = this.chartContainer.querySelector('.pie-chart__svg')
+    /* this.defs = this.svgContainer.querySelector('.pie-chart__defs'); */
 
     this.buttonTEST = document.createElement('button');
     this.buttonTEST.classList.add('test-button');
     this.buttonTEST.textContent = 'test button';
 
-    this.container.append(this.svgContainer);
+    this.container.append(this.chartContainer);
     this.container.append(this.buttonTEST);
+
+    this.buildSegments();
+  }
+
+  buildSegments() {
+    this.values.forEach((value, index) => {
+      this.segments.push(new Segment(this, value, index));
+    });
   }
 
   rotate() {
-    this.startAngle += 10;
-    this.endAngle += 10;
-    const startAngleInRad = this.converDegToRad(this.startAngle);
-    const endAngleInRad = this.converDegToRad(this.endAngle);
-
-    let x1 = this.radius * Math.cos(startAngleInRad);
-    let y1 = this.radius * Math.sin(startAngleInRad);
-    let x2 = this.radius * Math.cos(endAngleInRad);
-    let y2 = this.radius * Math.sin(endAngleInRad);
-
-    const outerArcData = `M0 0 ${x1} ${y1} A150 150 0 0 1 ${x2} ${y2}Z`;
-    this.outerPath.setAttribute('d', outerArcData)
-
-    let subx1 = this.subradius * Math.cos(startAngleInRad);
-    let suby1 = this.subradius * Math.sin(startAngleInRad);
-    let subx2 = this.subradius * Math.cos(endAngleInRad);
-    let suby2 = this.subradius * Math.sin(endAngleInRad);
-
-    const innerArcData = `M0 0 ${subx1} ${suby1} A150 150 0 0 1 ${subx2} ${suby2}Z`;
-    this.innerPath.setAttribute('d', innerArcData)
-  }
-
-  converDegToRad(deg) {
-    const oneDeg = Math.PI / 180;
-    const result = oneDeg * deg;
-    return result;
+    this.segments.forEach((segment) => {
+      segment.startAngle += 10;
+      segment.endAngle += 10;
+      segment.rotate();
+    });
   }
 }
 
