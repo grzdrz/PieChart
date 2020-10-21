@@ -61,11 +61,17 @@ class Segment {
   handleSegmentMouseOver() {
     this.subradius = this.chart.hoveredSubradius;
     this.rotate();
+
+    this.chart.currentSegmentValue.textContent = this.value;
+    this.chart.currentSegmentName.textContent = this.name;
   }
 
   handleSegmentMouseOut() {
     this.subradius = this.chart.subradius;
     this.rotate();
+
+    this.chart.currentSegmentValue.textContent = '';
+    this.chart.currentSegmentName.textContent = '';
   }
 }
 

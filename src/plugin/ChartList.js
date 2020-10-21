@@ -1,27 +1,18 @@
+import ListItem from './list-item';
+
 class ChartList {
-  constructor(chart) {
+  constructor(chart, container) {
     this.chart = chart;
-
-    /* this.initialize(); */
+    this.container = container;
   }
 
-  /* initialize() {
-    this.build();
-  } */
-
-  build() {
-    this.chart.segmentsData.forEach((segment) => {
-      this.item = document.createElement('div');
-      this.item.classList.add('pie-chart__chart-list-item');
-      this.item.innerHTML = `
-        <div class="pie-chart__item-dot"></div>
-        <div class="pie-chart__item-text">${segment.name}</div>
-      `;
-
-      this.chart.chartListContainer.append(item);
+  initialize() {
+    const itemsContainer = Array.from(this.container.querySelectorAll('.pie-chart__list-item'));
+    this.items = itemsContainer.map((itemContainer, index) => {
+      return new ListItem(this.chart, itemContainer, this.chart.segments[index]);
     });
-    document
-  }
+
+  };
 }
 
 export default ChartList;

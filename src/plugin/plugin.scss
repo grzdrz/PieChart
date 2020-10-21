@@ -1,17 +1,29 @@
+@import '../assets/constants.scss';
+
 .pie-chart {
+  display: flex;
   border: 1px solid black;
-  width: 300px;
-  height: 300px;
+
+  &__svg-container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 
   &__svg {
     width: 100%;
     height: 100%;
+    position: absolute;
   }
 
   &__paths {
   }
 
   &__outer-path {
+    cursor: pointer;
   }
 
   &__inner-path {
@@ -20,6 +32,45 @@
 
   &__central-circle {
     fill: white;
+  }
+
+  &__current-segment {
+    /* width: 100%;
+    height: 100%; */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__chart-list {
+    margin-left: 20px;
+  }
+
+  &__list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__item-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    &-0 {
+      background: $gradient-purple-to-blue;
+    }
+    &-1 {
+      background: $gradient-green-to-turquoise;
+    }
+    &-2 {
+      background: $gradient-yellow-to-peach;
+    }
+    &-3 {
+      background: $gradient-gray-to-blue;
+    }
   }
 }
 
