@@ -68,15 +68,15 @@ body {
   flex-direction: column; }
 
 .pie-chart {
-  display: flex;
-  border: 1px solid black; }
+  display: flex; }
   .pie-chart__svg-container {
     width: 300px;
     height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; }
+    position: relative;
+    border: 1px solid black; }
   .pie-chart__svg {
     width: 100%;
     height: 100%;
@@ -88,13 +88,20 @@ body {
   .pie-chart__central-circle {
     fill: white; }
   .pie-chart__current-segment {
-    /* width: 100%;
-    height: 100%; */
     position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    font-weight: bold; }
+    .pie-chart__current-segment-0 {
+      color: #bc9cff; }
+    .pie-chart__current-segment-1 {
+      color: #6fcf97; }
+    .pie-chart__current-segment-2 {
+      color: #ffba9c; }
+    .pie-chart__current-segment-3 {
+      color: #adb5bd; }
   .pie-chart__chart-list {
     margin-left: 20px; }
   .pie-chart__list-item {
