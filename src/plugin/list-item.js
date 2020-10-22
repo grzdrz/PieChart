@@ -14,22 +14,10 @@ class ListItem {
   }
 
   handleItemMouseOver() {
-    /*  const index = Number.parseInt(event.target.dataset.index);
-     const segment = this.chart.segments.find((segment) => { segment.index === index });
-     segment.subradius = this.chart.hoveredSubradius;
-     this.rotate(); */
-    /* this.segment.subradius = this.chart.hoveredSubradius;
-    this.segment.rotate(); */
     this.segment.handleSegmentMouseOver();
   }
 
   handleItemMouseOut() {
-    /* const index = Number.parseInt(event.target.dataset.index);
-    const segment = this.chart.segments.find((segment) => { segment.index === index });
-    segment.subradius = this.chart.subradius;
-    this.rotate(); */
-    /* this.segment.subradius = this.chart.subradius;
-    this.segment.rotate(); */
     this.segment.handleSegmentMouseOut();
   }
 }
