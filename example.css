@@ -122,10 +122,12 @@ body {
       background: linear-gradient(180deg, #919191 0%, #3d4975 100%); }
 
 .test-button {
+  cursor: pointer;
   width: 100px;
   height: 50px;
-  background: blue;
-  border: 1px solid black; }
+  margin-left: 20px;
+  background: linear-gradient(to bottom, #bc9cff, #8ba4f9);
+  color: white; }
 
 .exapmle {
   width: 100%;
