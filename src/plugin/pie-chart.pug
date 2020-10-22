@@ -4,6 +4,7 @@ mixin pie-chart(options = {})
       outerRadius = 150,
       innerRadius = 130,
       hoveredInnerRadius = 120,
+      intervalBetweenArcs = 1,
       segments = [
         { value: 30, topColor: "rgb(188, 156, 255)", bottomColor: "rgb(139, 164, 249)", name: "name1" },
         { value: 50, topColor: "rgb(111, 207, 151)", bottomColor: "rgb(102, 210, 234)", name: "name2" },
@@ -12,7 +13,11 @@ mixin pie-chart(options = {})
       ],
     } = options;
 
-  div(class=["pie-chart"] data-outer-radius=outerRadius data-inner-radius=innerRadius data-hovered-inner-radius=hoveredInnerRadius)
+  div(class=["pie-chart"] 
+  data-outer-radius=outerRadius 
+  data-inner-radius=innerRadius 
+  data-hovered-inner-radius=hoveredInnerRadius
+  data-interval-between-arcs=intervalBetweenArcs)
     div(class=["pie-chart__svg-container"])
       svg(class=["pie-chart__svg"])
         defs(class=["pie-chart__defs"])
@@ -40,4 +45,4 @@ mixin pie-chart(options = {})
           div(class=["pie-chart__item-text", `pie-chart__item-text-${i}`])= segments[i].name
       - }
 
-    button(class=["test-button"]) TEST
+    button(class=["test-button"]) Rotate chart

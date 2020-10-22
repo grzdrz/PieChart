@@ -13,8 +13,6 @@ class Segment {
 
     this.innerRadius = this.chart.innerRadius;
 
-    this.interval = 0.5;
-
     this.handleSegmentMouseOver = this.handleSegmentMouseOver.bind(this);
     this.handleSegmentMouseOut = this.handleSegmentMouseOut.bind(this);
   }
@@ -36,14 +34,14 @@ class Segment {
   calculateArcSize(isInnerArc = false) {
     const startAngleInRad = this.converDegToRad(this.startAngle);
     const endAngleInRad = this.converDegToRad(this.endAngle);
-    let interval = this.converDegToRad(this.interval);
+    let intervalBetweenArcs = this.converDegToRad(this.chart.intervalBetweenArcs);
     const radius = isInnerArc ? this.innerRadius : this.chart.outerRadius;
-    if (isInnerArc) interval *= -1;
+    if (isInnerArc) intervalBetweenArcs *= -1;
 
-    const x1 = radius * Math.cos(startAngleInRad + interval);
-    const y1 = radius * Math.sin(startAngleInRad + interval);
-    const x2 = radius * Math.cos(endAngleInRad - interval);
-    const y2 = radius * Math.sin(endAngleInRad - interval);
+    const x1 = radius * Math.cos(startAngleInRad + intervalBetweenArcs);
+    const y1 = radius * Math.sin(startAngleInRad + intervalBetweenArcs);
+    const x2 = radius * Math.cos(endAngleInRad - intervalBetweenArcs);
+    const y2 = radius * Math.sin(endAngleInRad - intervalBetweenArcs);
 
     return [x1, y1, x2, y2];
   }

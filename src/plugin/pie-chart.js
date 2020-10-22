@@ -38,6 +38,7 @@ class PieChart {
     this.outerRadius = Number.parseInt(this.container.dataset.outerRadius, 10);
     this.innerRadius = Number.parseInt(this.container.dataset.innerRadius, 10);
     this.hoveredInnerRadius = Number.parseInt(this.container.dataset.hoveredInnerRadius, 10);
+    this.intervalBetweenArcs = Number.parseInt(this.container.dataset.intervalBetweenArcs, 10);
   }
 
   createSegments() {
